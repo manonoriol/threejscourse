@@ -1,5 +1,7 @@
 import './style.css'
 import * as THREE from 'three'
+import gsap from 'gsap'
+
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -27,6 +29,37 @@ scene.add(camera)
 // Renderer
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
-})
-renderer.setSize(sizes.width, sizes.height)
-renderer.render(scene, camera)
+});
+renderer.setSize(sizes.width, sizes.height);
+
+// time
+let time = Date.now();
+
+// Animation
+
+// function tick() {
+//     console.log('tick');
+//     window.requestAnimationFrame(tick)
+// };
+
+// clock
+// const clock = new THREE.Clock();
+
+gsap.to(mesh.position, { duration: 1, delay: 1, x: 2 })
+gsap.to(mesh.position, { duration: 1, delay: 2, x: 0 })
+
+const tick = () => {
+    //Clock
+    // const elapsedTime = clock.getElapsedTime();
+
+    //update objects -> for the object to rotate at the same speed no matter what your FPS is
+    // mesh.rotation.y = elapsedTime;
+    // mesh.position.y = Math.sign(elapsedTime);
+    // mesh.position.x = Math.cos(elapsedTime);
+
+    //render
+    renderer.render(scene, camera)
+    window.requestAnimationFrame(tick)
+}
+
+tick();
