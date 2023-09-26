@@ -3,10 +3,48 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 /**
+ * Textures
+ */
+const loadingManager = new THREE.LoadingManager();
+
+// loadingManager.onStart = () => {
+//     console.log('onStart')
+// };
+
+// loadingManager.onLoad = () => {
+//     console.log('onLoad')
+// };
+
+// loadingManager.onProgress = () => {
+//     console.log('onProgress')
+// }
+const textureLoader = new THREE.TextureLoader(loadingManager);
+
+const colorTexture = textureLoader.load('/textures/minecraft.png');
+// colorTexture.repeat.x = 2;
+// colorTexture.repeat.y = 3;
+// colorTexture.wrapS = THREE.MirroredRepeatWrapping;
+// colorTexture.wrapT = THREE.MirroredRepeatWrapping;
+// colorTexture.offset.x = 0.5;
+// colorTexture.offset.y = 0.5;
+// colorTexture.rotation = Math.PI * 0.25;
+// colorTexture.center.x = 0.5;
+// colorTexture.center.y = 0.5;
+colorTexture.generateMipmaps = false;
+colorTexture.minFilter = THREE.NearestFilter;
+colorTexture.magFilter = THREE.NearestFilter;
+
+
+const alphaTexture = textureLoader.load('/textures/door/alpha.jpg');
+const normalTexture = textureLoader.load('/textures/door/normal.jpg');
+const ambiantOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg');
+const metalnessTexture = textureLoader.load('/textures/door/metalness.jpg');
+const roughnessTexture = textureLoader.load('/textures/door/roughness.jpg');
+
+/**
  * Base
  */
-// Canvas
-const canvas = document.querySelector('canvas.webgl')
+const canvas = document.querySelector('canvas.webgl');
 
 // Scene
 const scene = new THREE.Scene()
@@ -14,10 +52,10 @@ const scene = new THREE.Scene()
 /**
  * Object
  */
-const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
-const mesh = new THREE.Mesh(geometry, material)
-scene.add(mesh)
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshBasicMaterial({ map: colorTexture });
+const mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh);
 
 /**
  * Sizes
@@ -25,7 +63,7 @@ scene.add(mesh)
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
-}
+};
 
 window.addEventListener('resize', () =>
 {
