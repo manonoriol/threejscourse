@@ -1,7 +1,6 @@
-import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'lil-gui'
+import GUI from 'lil-gui'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 /**
@@ -15,7 +14,7 @@ const cubeTextureLoader = new THREE.CubeTextureLoader()
  * Base
  */
 // Debug
-const gui = new dat.GUI()
+const gui = new GUI()
 const debugObject = {}
 
 // Canvas
@@ -54,7 +53,7 @@ const environmentMap = cubeTextureLoader.load([
     '/textures/environmentMap/nz.jpg'
 ])
 
-environmentMap.encoding = THREE.sRGBEncoding
+environmentMap.colorSpace = THREE.SRGBColorSpace
 
 // scene.background = environmentMap
 scene.environment = environmentMap
@@ -89,7 +88,7 @@ gltfLoader.load(
  * Floor
  */
 const floorColorTexture = textureLoader.load('textures/dirt/color.jpg')
-floorColorTexture.encoding = THREE.sRGBEncoding
+floorColorTexture.colorSpace = THREE.SRGBColorSpace
 floorColorTexture.repeat.set(1.5, 1.5)
 floorColorTexture.wrapS = THREE.RepeatWrapping
 floorColorTexture.wrapT = THREE.RepeatWrapping
@@ -166,8 +165,6 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true
 })
-renderer.physicallyCorrectLights = true
-renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.CineonToneMapping
 renderer.toneMappingExposure = 1.75
 renderer.shadowMap.enabled = true
