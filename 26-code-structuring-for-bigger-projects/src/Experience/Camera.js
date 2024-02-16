@@ -6,7 +6,7 @@ export default class Camera
 
 {
     constructor() {
-        this.experience = experience
+        this.experience = new Experience()
         this.sizes = this.experience.sizes
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
@@ -33,6 +33,6 @@ resize() {
 }
 
 update() {
-    this.constrols.update()
+    this.controls.update()
 }
     }
